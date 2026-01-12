@@ -1,21 +1,10 @@
 @echo off
+cd /d C:\qa-auto-commit-evento || exit /b
 
-REM === Caminho do projeto ===
-cd /d C:\qa-auto-commit-evento
+git add .
 
-REM === Verifica se existem mudanças ===
-git status --porcelain > changes.txt
-
-REM === Se o arquivo estiver vazio, não há mudanças ===
-for %%A in (changes.txt) do if %%~zA==0 (
-    del changes.txt
-    exit /b
+git diff --cached --quiet
+IF %ERRORLEVEL% NEQ 0 (
+    git commit -m "auto commit v2 %date% %time%"
+    git push origin main
 )
-
-REM === Há mudanças: fazer commit ===
-git add Scripts
-git commit -m "Atualização automática dos scripts"
-git push origin main
-
-REM === Limpeza ===
-del changes.txt
