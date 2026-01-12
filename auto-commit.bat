@@ -1,7 +1,7 @@
 @echo off
 
 REM === Caminho do projeto ===
-cd /d C:\qa-auto-commit-horario
+cd /d C:\qa-auto-commit-evento
 
 REM === Verifica se existem mudanças ===
 git status --porcelain > changes.txt
